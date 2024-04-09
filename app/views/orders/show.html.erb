@@ -1,0 +1,31 @@
+<h1>Detalhes do pedido: </h1>
+<h2><%= Order.model_name.human %> <%= @order.code %></h2>
+
+<dl>
+  <dt><%= Order.human_attribute_name(:warehouse_id)%>:</dt>
+  <dd><%= @order.warehouse.full_description %></dd>
+  <dt><%= Order.human_attribute_name(:supplier_id)%>:</dt>
+  <dd><%= @order.supplier.corporate_name %></dd>
+  <dt><%= Order.human_attribute_name(:user_id)%>:</dt>
+  <dd><%= @order.user.name %> | <%= @order.user.email %> |</dd>
+  <dt><%= Order.human_attribute_name(:estimated_delivery_date)%>:</dt>
+  <dd><%= I18n.localize(@order.estimated_delivery_date) %></dd>
+  <dt><%= Order.human_attribute_name(:status) %>: </dt>
+  <dd><%= t(@order.status)%></dd>
+</dl>
+
+<h2>Itens do pedido</h2>
+<%= link_to 'Adicionar Item', new_order_order_item_path(order_id: @order.id) %>
+
+<ul>
+  <% @order.order_items.each do |item| %>
+    <li><%= item.quantity %> x <%= item.product_model.name %></li>
+  <% end %>
+</ul>
+
+<% if @order.pending? %>
+  <%= button_to 'Marcar como Entregue', delivered_order_path(@order.id) %>
+  <%= button_to 'Marcar como Cancelado', canceled_order_path(@order.id) %>
+<% end %>
+
+<%= link_to 'Editar Pedido', edit_order_path(@order.id) %>

@@ -9,8 +9,34 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-    <%= yield %>
+    <header>
+      <%= link_to root_path do %>
+        <h1>Galpões & Estoque</h1>
+      <% end %>
+    </header>
+    <nav>
+      <%= link_to 'Fornecedores', suppliers_path%> |
+      <%= link_to 'Modelos de produtos', product_models_path %> |
+      <%= link_to 'Registrar Pedido', new_order_path %> |
+      <%= link_to 'Meus Pedidos', orders_path %> |
+      <% if user_signed_in? %>
+        <%= form_with url: search_orders_url, method: :get do |form| %>
+          <%= form.label :query, 'Buscar pedido' %>
+          <%= form.text_field :query %>
+
+          <%= form.submit 'Buscar' %>
+        <% end %>
+        <%= current_user.email %>
+        <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Login', new_user_session_path %>
+      <% end %> |
+    </nav>
+    <main>
+      <%= notice %>
+      <%= alert %>
+      <%= yield %>
+    </main>
   </body>
 </html>

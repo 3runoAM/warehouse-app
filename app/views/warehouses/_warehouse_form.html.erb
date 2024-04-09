@@ -1,0 +1,54 @@
+<%= form_with(model: @warehouse, html: { data: { turbo: false } }) do |w| %>
+
+  <% if @warehouse.errors.any? %>
+    <p>Verifique os erros abaixo: </p>
+    <ul>
+      <% @warehouse.errors.full_messages.each do |e| %>
+        <li> <%= e %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= w.label :name, 'Nome' %>
+    <%= w.text_field :name %>
+  </div>
+  <br/>
+
+  <div>
+    <%= w.label :code, 'Código'%>
+    <%= w.text_field :code%>
+  </div>
+  <br/>
+
+  <div>
+    <%= w.label :city, 'Cidade'%>
+    <%= w.text_field :city %>
+  </div>
+  <br/>
+
+  <div>
+    <%= w.label :area, 'Área' %>
+    <%= w.number_field :area %>
+  </div>
+  <br/>
+
+  <div>
+    <%= w.label :address, 'Endereço' %>
+    <%= w.text_area :address %>
+  </div>
+  <br/>
+
+  <div>
+    <%= w.label :CEP, 'CEP' %>
+    <%= w.text_field :CEP %>
+  </div>
+  <br/>
+
+  <div>
+    <%= w.label :description, 'Descrição'%>
+    <%= w.text_area :description %>
+  </div>
+
+  <%= w.submit%>
+<% end %>

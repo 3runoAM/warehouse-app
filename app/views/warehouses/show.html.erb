@@ -1,0 +1,44 @@
+<h1>Galpão <%=@warehouse.code %></h1>
+
+<%= link_to 'Home', root_path %>
+<%= link_to 'Editar', edit_warehouse_path(@warehouse.id) %>
+<%= button_to 'Remover', warehouse_path(@warehouse.id), method: :delete %>
+
+<p>Nome: <%= @warehouse.name %></p>
+<p>Cidade: <%= @warehouse.city %></p>
+<p>Área: <%= @warehouse.area %></p>
+<p>Endereço: <%= @warehouse.address %></p>
+<p>CEP: <%= @warehouse.CEP %></p>
+<p>Descrição: <%= @warehouse.description %></p>
+
+<section id="stock_products">
+  <h2>Itens em estoque</h2>
+  <% @stock.each_pair do |product, quantity| %>
+    <%= quantity %> x <%= product.sku %>
+  <% end %>
+</section>
+
+<section id="stock_destination">
+  <h2>Saída de estoque</h2>
+  <%= form_with(url: warehouse_stock_product_destinations_path(@warehouse.id)) do |f| %>
+    <div>
+      <%= f.label :product_model_id, 'Item para saída' %>
+      <%= f.collection_select :product_model_id, @product_models, :id, :sku%>
+    </div>
+    <br/>
+
+    <div>
+      <%= f.label :recipient, 'Destinatário'%>
+      <%= f.text_field :recipient %>
+    </div>
+    <br/>
+
+    <div>
+      <%= f.label :address, 'Endereço Destino'%>
+      <%= f.text_field :address %>
+    </div>
+    <br/>
+
+    <%= f.submit 'Confirmar retirada' %>
+  <% end %>
+</section>

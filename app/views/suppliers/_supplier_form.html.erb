@@ -1,0 +1,55 @@
+<%= form_with(model: @supplier, html: {data: { turbo: false } }) do |s| %>
+
+  <% if @supplier.errors.any? %>
+    <p>Verifique os erros abaixo: </p>
+    <ul>
+      <% @supplier.errors.full_messages.each do |e| %>
+        <li> <%= e %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= s.label :corporate_name %>
+    <%= s.text_field :corporate_name %>
+  </div>
+  <br/>
+
+  <div>
+    <%= s.label :brand_name %>
+    <%= s.text_field :brand_name %>
+  </div>
+  <br/>
+
+  <div>
+    <%= s.label :registration_number %>
+    <%= s.number_field :registration_number %>
+  </div>
+  <br/>
+
+  <div>
+    <%=s.label :full_address %>
+    <%= s.text_field :full_address %>
+  </div>
+  <br/>
+
+  <div>
+    <%= s.label :city %>
+    <%= s.text_field :city %>
+  </div>
+  <br/>
+
+  <div>
+    <%= s.label :state %>
+    <%= s.text_field :state %>
+  </div>
+  <br/>
+
+  <div>
+    <%= s.label :email %>
+    <%= s.text_field :email %>
+  </div>
+  <br/>
+
+  <%= s.submit %>
+<% end %>

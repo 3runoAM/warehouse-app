@@ -1,0 +1,55 @@
+<%= form_with(model: @product_model, html: { data: { turbo: false } }) do |pm| %>
+
+  <% if @product_model.errors.any? %>
+    <p>Verifique os erros abaixo: </p>
+    <ul>
+      <% @product_model.errors.full_messages.each do |e| %>
+        <li> <%= e %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= pm.label :name %>
+    <%= pm.text_field :name %>
+  </div>
+  <br/>
+
+  <div>
+    <%= pm.label :weight %>
+    <%= pm.number_field :weight %>
+  </div>
+  <br/>
+
+  <div>
+    <%= pm.label :width %>
+    <%= pm.number_field :width %>
+  </div>
+  <br/>
+
+  <div>
+    <%= pm.label :heigth %>
+    <%= pm.number_field :heigth %>
+  </div>
+  <br/>
+
+  <div>
+    <%= pm.label :depth %>
+    <%= pm.number_field :depth %>
+  </div>
+  <br/>
+
+  <div>
+    <%= pm.label :sku %>
+    <%= pm.text_field :sku %>
+  </div>
+  <br/>
+
+  <div>
+    <%= pm.label :supplier%>
+    <%= pm.collection_select :supplier_id, @suppliers.to_a, :id, :brand_name %>
+  </div>
+  <br/>
+
+  <%= pm.submit 'Cadastrar Modelo de Produto' %>
+<% end %>

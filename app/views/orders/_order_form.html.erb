@@ -1,0 +1,31 @@
+<%= form_with model: @order, html: {data: {turbo: false}} do |o|%>
+
+  <% if @order.errors.any? %>
+    <p>Verifique os erros abaixo: </p>
+    <ul>
+      <% @order.errors.full_messages.each do |e| %>
+        <li> <%= e %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <%= o.label :warehouse %>
+    <%= o.collection_select :warehouse_id, @warehouses, :id, :full_description %>
+  </div>
+  <br/>
+
+  <div>
+    <%= o.label :supplier %>
+    <%= o.collection_select :supplier_id, @suppliers, :id, :corporate_name %>
+  </div>
+  <br/>
+
+  <div>
+    <%= o.label :estimated_delivery_date%>
+    <%= o.date_field :estimated_delivery_date %>
+  </div>
+  <br/>
+
+  <%= o.submit %>
+<% end %>
