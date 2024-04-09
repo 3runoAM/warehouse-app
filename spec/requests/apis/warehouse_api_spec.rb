@@ -7,11 +7,27 @@ describe 'Warehouse API' do
                                     address: 'Avenida das estrelas, 5000', CEP: '15000-00',
                                     description: 'Galpão para armazenamento')
 
-      get "/api/v1/warehouse/#{warehouse.id}"
+      get "/api/v1/warehouses/#{warehouse.id}"
 
-      expect(response).to have_http_status 200 #ok
+
+      expect(response).to have_http_status 200
       expect(response.content_type).to include 'application/json'
-      expect(response.body).to include('Rio')
+      json_response = JSON.parse(response.body)
+      expect(json_response['name']).to eq 'Rio'
+      expect(json_response['code']).to eq 'SDU'
+      expect(json_response.keys).not_to include('created_at')
+      expect(json_response.keys).not_to include('updated_at')
+    end
+
+    it 'fail if not found' do
+      get "/api/v1/warehouses/4536911"
+
+      expect(response.status).to eq 404
+    end
+  end
+  context 'GET /apiu/v1/warehoses' do
+    it 'com sucesso' do
+
     end
   end
 end
